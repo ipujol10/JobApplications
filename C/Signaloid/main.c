@@ -6,26 +6,25 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-typedef Node LinkedList;
+typedef Node* LinkedList;
 
 void printList(LinkedList* list);
+void insert(LinkedList* list, int value, int position);
 
 int main(int argc, char *argv[]) {
-
-    Node n0, n1;
-    n1 = (Node) {1, NULL};
-    n0 = (Node) {0, &n1};
-    LinkedList list = n0;
+    printf("Start with a single node with value 1\n");
+    Node head = {1, NULL};
+    LinkedList list = &head;
     printList(&list);
 
     return 0;
 }
 
 void printList(LinkedList* list) {
-    if (list->next == NULL) {
-        printf("%i\n", list->data);
-        return;
-    }
-    printf("%i -> ", list->data);
-    printList(list->next);
+    Node node = **list;
+    while (node.next != NULL) {
+        printf("%i -> ", node.data);
+        node = *node.next;
+    };
+    printf("%i\n", node.data);
 }
