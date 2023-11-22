@@ -12,6 +12,8 @@ void printList(LinkedList list);
 void insert(LinkedList* list, int value, int position);
 int search(LinkedList list, int value);
 int length(LinkedList list);
+void delete(LinkedList* list, int position);
+void deleteNode(LinkedList* list, int value);
 
 int main(int argc, char *argv[]) {
     printf("Start with a single node with value 1\n");
@@ -28,9 +30,13 @@ int main(int argc, char *argv[]) {
     insert(&list, 2, 2);
     printList(list);
 
-    printf("\nTry to add the node 5 at position 5. It prints an error and keeps"
+    printf("\nAdd node 4\n");
+    insert(&list, 4, 4);
+    printList(list);
+
+    printf("\nTry to add the node 6 at position 6. It prints an error and keeps"
             " the list intact\n");
-    insert(&list, 5, 5);
+    insert(&list, 6, 6);
     printList(list);
 
     printf("\nTry to add the node -1 at position -1. It prints an error and keeps"
@@ -45,6 +51,13 @@ int main(int argc, char *argv[]) {
     printf("Node %i in position %i\n", 5, search(list, 5));
 
     printf("\nLenght of the list: %i\n", length(list));
+
+    printf("\nDelete last element\n");
+    delete(&list, 4);
+    printList(list);
+    printf("\nDelete first element\n");
+    delete(&list, 0);
+    printList(list);
 
     return 0;
 }
@@ -106,4 +119,34 @@ int length(LinkedList list) {
         node = *node.next;
     }
     return count;
+}
+
+void delete(LinkedList* list, int position) {
+    if (position == 0) {
+        if (*list == NULL) {
+            printf("Index out of range\n");
+            return;
+        }
+        Node* node = *list;
+        *list = node->next;
+        free(node);
+        return;
+    }
+    Node* prev = *list;
+    Node* curr = prev->next;
+    int count = 1;
+    while (count < position) {
+        if (curr->next == NULL) {
+            printf("Index out of range\n");
+            return;
+        }
+        prev = curr;
+        curr = prev->next;
+        count++;
+    }
+    prev->next = curr->next;
+    free(curr);
+}
+
+void deleteNode(LinkedList* list, int value) {
 }
