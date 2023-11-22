@@ -1,0 +1,5 @@
+# Nvim cmake build
+out
+
+# C/C++ compiled json files
+compile_commands.json
