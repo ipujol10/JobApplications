@@ -39,8 +39,8 @@ int main(int argc, char *argv[]) {
     insert(&list, 6, 6);
     printList(list);
 
-    printf("\nTry to add the node -1 at position -1. It prints an error and keeps"
-            " the list intact\n");
+    printf("\nTry to add the node -1 at position -1. It prints an error and "
+            "keeps the list intact\n");
     insert(&list, -1, -1);
     printList(list);
 
@@ -57,6 +57,24 @@ int main(int argc, char *argv[]) {
     printList(list);
     printf("\nDelete first element\n");
     delete(&list, 0);
+    printList(list);
+
+    printf("\nDelete node 2 and 3\n");
+    deleteNode(&list, 2);
+    printList(list);
+    deleteNode(&list, 3);
+    printList(list);
+
+    printf("\nTry to delete 3 again\n");
+    deleteNode(&list, 3);
+    printList(list);
+
+    printf("\nIncrease list\n");
+    insert(&list, 0, 0);
+    printList(list);
+
+    printf("\nTry to delete 3 again\n");
+    deleteNode(&list, 3);
     printList(list);
 
     return 0;
@@ -149,4 +167,25 @@ void delete(LinkedList* list, int position) {
 }
 
 void deleteNode(LinkedList* list, int value) {
+    Node* prev = *list;
+    if (prev->data == value) {
+        *list = prev->next;
+        free(prev);
+        return;
+    }
+    if (prev->next == NULL) {
+        printf("Node doesn't exist\n");
+        return;
+    }
+    Node* curr = prev->next;
+    while (curr->data != value) {
+        if (curr->next == NULL) {
+            printf("Node doesn't exist\n");
+            return;
+        }
+        prev = curr;
+        curr = prev->next;
+    }
+    prev->next = curr->next;
+    free(curr);
 }
