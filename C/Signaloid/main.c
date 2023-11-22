@@ -10,6 +10,7 @@ typedef Node* LinkedList;
 
 void printList(LinkedList list);
 void insert(LinkedList* list, int value, int position);
+int search(LinkedList list, int value);
 
 int main(int argc, char *argv[]) {
     printf("Start with a single node with value 1\n");
@@ -35,6 +36,12 @@ int main(int argc, char *argv[]) {
             " the list intact\n");
     insert(&list, -1, -1);
     printList(list);
+
+    printf("\nFind the position of several nodes. If it doesn't exists returns "
+            "-1\n");
+    printf("Node %i in position %i\n", 0, search(list, 0));
+    printf("Node %i in position %i\n", 2, search(list, 2));
+    printf("Node %i in position %i\n", 5, search(list, 5));
 
     return 0;
 }
@@ -73,4 +80,17 @@ void insert(LinkedList* list, int value, int position) {
     Node* ptr = malloc(sizeof(Node));
     *ptr = (Node) {value, previous->next};
     previous->next = ptr;
+}
+
+int search(LinkedList list, int value) {
+    int count = 0;
+    Node node = *list;
+    while (value != node.data) {
+        if (node.next == NULL) {
+            return -1;
+        }
+        count++;
+        node = *node.next;
+    }
+    return count;
 }
