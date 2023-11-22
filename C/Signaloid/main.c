@@ -31,6 +31,11 @@ int main(int argc, char *argv[]) {
     insert(&list, 5, 5);
     printList(list);
 
+    printf("\nTry to add the node -1 at position -1. It prints an error and keeps"
+            " the list intact\n");
+    insert(&list, -1, -1);
+    printList(list);
+
     return 0;
 }
 
@@ -44,6 +49,10 @@ void printList(LinkedList list) {
 }
 
 void insert(LinkedList* list, int value, int position) {
+    if (position < 0) {
+        printf("Index out of range\n");
+        return;
+    }
     if (position == 0) {
         Node* ptr = malloc(sizeof(Node));
         *ptr = (Node) {value, *list};
