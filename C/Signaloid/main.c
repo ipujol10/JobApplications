@@ -11,6 +11,7 @@ typedef Node* LinkedList;
 void printList(LinkedList list);
 void insert(LinkedList* list, int value, int position);
 int search(LinkedList list, int value);
+int length(LinkedList list);
 
 int main(int argc, char *argv[]) {
     printf("Start with a single node with value 1\n");
@@ -42,6 +43,8 @@ int main(int argc, char *argv[]) {
     printf("Node %i in position %i\n", 0, search(list, 0));
     printf("Node %i in position %i\n", 2, search(list, 2));
     printf("Node %i in position %i\n", 5, search(list, 5));
+
+    printf("\nLenght of the list: %i\n", length(list));
 
     return 0;
 }
@@ -89,6 +92,16 @@ int search(LinkedList list, int value) {
         if (node.next == NULL) {
             return -1;
         }
+        count++;
+        node = *node.next;
+    }
+    return count;
+}
+
+int length(LinkedList list) {
+    int count = 1;
+    Node node = *list;
+    while (node.next != NULL) {
         count++;
         node = *node.next;
     }
